@@ -1,5 +1,6 @@
 package com.berber_co.barber.handler;
 
+import com.berber_co.Validations;
 import com.berber_co.barber.configuration.constans.ApiResponse;
 import com.berber_co.barber.exception.AppException;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AppException.class)
     public ResponseEntity<ApiResponse<Void>> handleAppException(AppException ex) {
-        return ResponseEntity.ok(ApiResponse.error(ERROR, ex.getMessage()));
+        return ResponseEntity.ok(
+                ApiResponse.error(ex.getMessage(), ex.getCode())
+        );
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -38,11 +41,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ApiResponse<Void>> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
-        return ResponseEntity.ok(ApiResponse.error(ERROR, "Invalid parameter type: " + ex.getMessage()));
+        return ResponseEntity.ok(ApiResponse.error(ERROR, "Parametre tipi hatalı: " + ex.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Void>> handleGenericException(Exception ex) {
-        return ResponseEntity.ok(ApiResponse.error(ERROR, "Unexpected error: " + ex.getMessage()));
+        return ResponseEntity.ok(ApiResponse.error(ERROR, "Beklenmeyen bir hata oluştu: " + ex.getMessage()));
     }
 }

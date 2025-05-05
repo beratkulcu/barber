@@ -1,4 +1,4 @@
-package com.berber_co.barber.service.impl;
+package com.berber_co.barber.service.impl.user;
 
 import com.berber_co.barber.configuration.constans.ApiResponse;
 import com.berber_co.barber.data.request.UserLoginRequest;
@@ -6,7 +6,8 @@ import com.berber_co.barber.data.request.UserRegisterRequest;
 import com.berber_co.barber.data.response.AuthenticationResponse;
 import com.berber_co.barber.entity.Role;
 import com.berber_co.barber.entity.Token;
-import com.berber_co.barber.entity.User;
+import com.berber_co.barber.entity.user.User;
+import com.berber_co.barber.enums.ActivityStatus;
 import com.berber_co.barber.enums.RoleType;
 import com.berber_co.barber.enums.TokenStatusEnum;
 import com.berber_co.barber.exception.AppException;
@@ -17,6 +18,7 @@ import com.berber_co.barber.security.JwtService;
 import com.berber_co.barber.service.user.UserAuthService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 
 import static com.berber_co.Validations.*;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserAuthServiceImpl implements UserAuthService {
@@ -56,6 +59,7 @@ public class UserAuthServiceImpl implements UserAuthService {
                 .email(request.email())
                 .password(passwordEncoder.encode(request.password()))
                 .username(request.username())
+                .status(ActivityStatus.ACTIVE)
                 .roles(Set.of(role))
                 .enabled(true)
                 .build();

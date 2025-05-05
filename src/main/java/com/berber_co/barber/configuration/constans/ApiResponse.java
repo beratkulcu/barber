@@ -20,8 +20,8 @@ public class ApiResponse<T> {
                 .build();
     }
 
-    public static ApiResponse<Void> error(String code, String message) {
-        return ApiResponse.<Void>builder()
+    public static <T> ApiResponse<T> error(String message, String code) {
+        return ApiResponse.<T>builder()
                 .success(false)
                 .data(null)
                 .error(new ErrorBody(code, message))
@@ -30,12 +30,12 @@ public class ApiResponse<T> {
 
     @Getter
     public static class ErrorBody {
-        private final String message;
         private final String code;
+        private final String message;
 
         public ErrorBody(String message, String code) {
-            this.message = message;
-            this.code = code;
+            this.message = code;
+            this.code = message;
         }
     }
 }

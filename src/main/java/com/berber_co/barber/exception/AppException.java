@@ -1,19 +1,15 @@
 package com.berber_co.barber.exception;
 
-import org.apache.kafka.common.protocol.types.Field;
+import lombok.Getter;
 
+@Getter
 public class AppException extends RuntimeException {
+    private final String code;
     private final String message;
-    private final String data;
 
-    public AppException(String message, String data) {
+    public AppException(String code, String message) {
         super(message);
-        this.data = data;
+        this.code = code;
         this.message = message;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
     }
 }

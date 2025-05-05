@@ -1,6 +1,9 @@
 package com.berber_co.barber.entity;
 
+import com.berber_co.barber.admin.entity.Admin;
 import com.berber_co.barber.entity.abstracts.BaseEntity;
+import com.berber_co.barber.entity.barber.Seller;
+import com.berber_co.barber.entity.user.User;
 import com.berber_co.barber.enums.TokenStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,6 +32,14 @@ public class Token extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seller_id")
+    private Seller seller;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id")
+    private Admin admin;
 
     private ZonedDateTime expiresAt;
 

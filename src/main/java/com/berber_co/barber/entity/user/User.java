@@ -1,6 +1,8 @@
-package com.berber_co.barber.entity;
+package com.berber_co.barber.entity.user;
 
+import com.berber_co.barber.entity.Role;
 import com.berber_co.barber.entity.abstracts.BaseEntity;
+import com.berber_co.barber.enums.ActivityStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,4 +39,7 @@ public class User extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
+
+    @Enumerated(EnumType.STRING)
+    private ActivityStatus status;
 }

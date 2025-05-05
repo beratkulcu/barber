@@ -5,18 +5,20 @@ import com.berber_co.barber.data.request.UserLoginRequest;
 import com.berber_co.barber.data.request.UserRegisterRequest;
 import com.berber_co.barber.data.response.AuthenticationResponse;
 import com.berber_co.barber.service.user.UserAuthService;
+import com.berber_co.barber.util.SecurityUtil;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import static com.berber_co.barber.configuration.constans.ApiPathConstants.USER_API;
 
+@Validated
 @RestController
 @RequestMapping(USER_API + "/auth")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "BearerAuth")
 public class UserAuthController {
     private final UserAuthService userAuthService;
 
@@ -29,5 +31,4 @@ public class UserAuthController {
     public ResponseEntity<ApiResponse<AuthenticationResponse>> login(@RequestBody UserLoginRequest request) {
         return ResponseEntity.ok(userAuthService.login(request));
     }
-
 }

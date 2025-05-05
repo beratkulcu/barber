@@ -1,6 +1,6 @@
 package com.berber_co.barber.repository.user;
 
-import com.berber_co.barber.entity.User;
+import com.berber_co.barber.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
