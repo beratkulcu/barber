@@ -11,29 +11,38 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.berber_co.Validations.ERROR;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(AppException.class)
     public ResponseEntity<ApiResponse<Void>> handleAppException(AppException ex) {
-        return ResponseEntity.ok(ApiResponse.error(ex.getMessage()));
+        return ResponseEntity.ok(ApiResponse.error(ERROR, ex.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResponse<Map<String, String>>> handleValidationException(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ApiResponse<Void>> handleValidationException(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getFieldErrors()
                 .forEach(err -> errors.put(err.getField(), err.getDefaultMessage()));
-        return ResponseEntity.ok(ApiResponse.success(errors));
+
+        String message = errors.entrySet()
+                .stream()
+                .map(e -> e.getKey() + ": " + e.getValue())
+                .reduce((a, b) -> a + ", " + b)
+                .orElse("Validation failed");
+
+        return ResponseEntity.ok(ApiResponse.error(ERROR, message));
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ApiResponse<Void>> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
-        return ResponseEntity.ok(ApiResponse.error("Invalid parameter type: " + ex.getMessage()));
+        return ResponseEntity.ok(ApiResponse.error(ERROR, "Invalid parameter type: " + ex.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Void>> handleGenericException(Exception ex) {
-        return ResponseEntity.ok(ApiResponse.error("An unexpected error occurred: " + ex.getMessage()));
+        return ResponseEntity.ok(ApiResponse.error(ERROR, "Unexpected error: " + ex.getMessage()));
     }
 }

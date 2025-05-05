@@ -1,6 +1,7 @@
 package com.berber_co.barber.controller.user;
 
 import com.berber_co.barber.configuration.constans.ApiResponse;
+import com.berber_co.barber.data.request.UserLoginRequest;
 import com.berber_co.barber.data.request.UserRegisterRequest;
 import com.berber_co.barber.data.response.AuthenticationResponse;
 import com.berber_co.barber.service.user.UserAuthService;
@@ -23,4 +24,10 @@ public class UserAuthController {
     public ResponseEntity<ApiResponse<AuthenticationResponse>> register(@RequestBody UserRegisterRequest request) {
         return ResponseEntity.ok(userAuthService.register(request));
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<AuthenticationResponse>> login(@RequestBody UserLoginRequest request) {
+        return ResponseEntity.ok(userAuthService.login(request));
+    }
+
 }

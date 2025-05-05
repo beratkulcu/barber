@@ -1,4 +1,4 @@
-package com.berber_co.barber;
+package com.berber_co;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
