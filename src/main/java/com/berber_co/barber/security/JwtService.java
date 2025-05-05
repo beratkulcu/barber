@@ -1,0 +1,78 @@
+package com.berber_co.barber.security;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.security.Key;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+@Service
+public class JwtService {
+    @Value("${security.jwt.secret}")
+    private String jwtSecret;
+
+    @Value("${security.jwt.expiration}")
+    private long refreshTokenExpiration;
+
+    @Value(("${security.jwt.access-expiration}"))
+    private long accessTokenExpiration;
+
+    private Key signingKey;
+
+    @PostConstruct
+    public void init() {
+        this.signingKey = Keys.hmacShaKeyFor(jwtSecret.getBytes());
+    }
+
+    public String generateAccessToken(String email, Set<String> roles) {
+        return Jwts.builder()
+                .setSubject(email)
+                .claim("roles", roles)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + accessTokenExpiration))
+                .signWith(signingKey)
+                .compact();
+    }
+
+    public String generateRefreshToken(String email) {
+        return Jwts.builder()
+                .setSubject(email)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + refreshTokenExpiration))
+                .signWith(signingKey)
+                .compact();
+    }
+
+    public boolean isTokenValid(String token) {
+        try {
+            parseToken(token);
+            return true;
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    public String extractUsername(String token) {
+        return parseToken(token).getBody().getSubject();
+    }
+
+    public List<String> extractRoles(String token) {
+        return parseToken(token).getBody().get("roles", List.class);
+    }
+
+    private Jws<Claims> parseToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(signingKey)
+                .build()
+                .parseClaimsJws(token);
+    }
+
+}
