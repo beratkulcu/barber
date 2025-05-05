@@ -1,7 +1,9 @@
 package com.berber_co.barber.util;
 
+import com.berber_co.barber.entity.barber.Seller;
 import com.berber_co.barber.entity.user.User;
 import com.berber_co.barber.exception.AppException;
+import com.berber_co.barber.security.CustomSellerDetails;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.core.Authentication;
@@ -25,26 +27,15 @@ public final class SecurityUtil {
         throw new AppException(ERROR, "Invalid user authentication principal");
     }
 
-    public static String getUserEmail() {
+    public static Long getSellerId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
 
-        if (principal instanceof User user) {
-            return user.getEmail();
+        if (principal instanceof CustomSellerDetails sellerDetails) {
+            return sellerDetails.getId();
         }
 
-        throw new AppException(ERROR, "Invalid user authentication principal");
-    }
-
-    public static String extractTokenFromContext() {
-        HttpServletRequest request =
-                ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        String authHeader = request.getHeader("Authorization");
-
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            return authHeader.substring(7);
-        }
-        throw new AppException(ERROR, "Authorization header not found or invalid");
+        throw new AppException(ERROR, "Invalid seller authentication principal");
     }
 
 }

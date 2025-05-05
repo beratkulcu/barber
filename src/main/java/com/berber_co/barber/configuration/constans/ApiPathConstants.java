@@ -8,4 +8,5 @@ public final class ApiPathConstants {
     public static final String ADMIN_API = "/api/v1/admin";
     public static final String USER_API = "/api/v1/user";
     public static final String BARBER_API = "/api/v1/barber";
+    public static final String LOCATION_API = "/api/v1/location";
 }

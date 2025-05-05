@@ -70,7 +70,7 @@ public class UserAuthServiceImpl implements UserAuthService {
                 .collect(Collectors.toSet());
 
         String accessToken = jwtService.generateAccessToken(user.getEmail(), roleNames);
-        String refreshToken = jwtService.generateRefreshToken(user.getEmail());
+        String refreshToken = jwtService.generateRefreshToken(user.getEmail(), roleNames);
 
         Token token = Token.builder()
                 .user(user)
@@ -101,7 +101,7 @@ public class UserAuthServiceImpl implements UserAuthService {
                 .collect(Collectors.toSet());
 
         String accessToken = jwtService.generateAccessToken(user.getEmail(), roles);
-        String refreshToken = jwtService.generateRefreshToken(user.getEmail());
+        String refreshToken = jwtService.generateRefreshToken(user.getEmail(), roles);
 
         List<Token> activeTokens = tokenRepository.findAllByUserAndStatus(user, TokenStatusEnum.ACTIVE);
         activeTokens.forEach(t -> t.setStatus(TokenStatusEnum.REVOKED));

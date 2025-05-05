@@ -68,7 +68,7 @@ public class AdminServiceImpl implements AdminService {
                 .collect(Collectors.toSet());
 
         String access  = jwtService.generateAccessToken(admin.getEmail(), roles);
-        String refresh = jwtService.generateRefreshToken(admin.getEmail());
+        String refresh = jwtService.generateRefreshToken(admin.getEmail(), roles);
 
         tokenRepo.save(Token.builder()
                 .admin(admin)

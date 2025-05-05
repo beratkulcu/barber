@@ -15,6 +15,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 
@@ -26,15 +28,13 @@ public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @CreatedDate
-    @Column(name = "created_date", nullable = false, updatable = false, columnDefinition = "TIMESTAMP(0) WITH TIME ZONE")
-    @TimeZoneStorage(TimeZoneStorageType.NATIVE)
-    private ZonedDateTime createdDate = ZonedDateTime.now();
+    @Column(name = "created_date", nullable = false, updatable = false)
+    private LocalDateTime createdDate;
 
     @LastModifiedDate
-    @Column(name = "last_modified_date", columnDefinition = "TIMESTAMP(0) WITH TIME ZONE")
+    @Column(name = "last_modified_date")
     @JsonIgnore
-    @TimeZoneStorage(TimeZoneStorageType.NATIVE)
-    private ZonedDateTime lastModifiedDate = ZonedDateTime.now();
+    private LocalDateTime lastModifiedDate;
 
     @CreatedBy
     @Column(name = "created_by", updatable = false)

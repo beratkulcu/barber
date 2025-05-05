@@ -41,9 +41,17 @@ public class Seller extends BaseEntity {
     )
     private Set<Role> roles;
 
-    @Column(nullable = false)
     private String storeName;
 
+    private String storeDescription;
     private String city;
-    private String street;
+    private String district;
+    private String address;
+
+    private String firstName;
+    private String lastName;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }

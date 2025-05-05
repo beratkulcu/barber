@@ -1,9 +1,11 @@
 package com.berber_co.barber.security;
 
+import com.berber_co.barber.enums.RoleType;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,9 +44,10 @@ public class JwtService {
                 .compact();
     }
 
-    public String generateRefreshToken(String email) {
+    public String generateRefreshToken(String email, Set<String> roles) {
         return Jwts.builder()
                 .setSubject(email)
+                .claim("roles", roles)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + refreshTokenExpiration))
                 .signWith(signingKey)
@@ -61,7 +64,7 @@ public class JwtService {
     }
 
     public String extractUsername(String token) {
-        return parseToken(token).getBody().getSubject();
+        return extractAllClaims(token).getSubject();
     }
 
     public List<String> extractRoles(String token) {
@@ -75,4 +78,24 @@ public class JwtService {
                 .parseClaimsJws(token);
     }
 
+    public RoleType extractRoleType(String token) {
+        List<String> roles = extractAllClaims(token).get("roles", List.class);
+        if (roles == null || roles.isEmpty()) {
+            throw new IllegalArgumentException("Roles claim is missing or empty");
+        }
+        return RoleType.valueOf(roles.get(0));
+    }
+
+    private Claims extractAllClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(signingKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    private Key getSignInKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
 }

@@ -46,6 +46,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Void>> handleGenericException(Exception ex) {
-        return ResponseEntity.ok(ApiResponse.error(ERROR, "Beklenmeyen bir hata oluştu: " + ex.getMessage()));
+        return ResponseEntity.ok(ApiResponse.error(ERROR, "Unexpected system error"+ " , " + ex.getMessage()));
     }
 }

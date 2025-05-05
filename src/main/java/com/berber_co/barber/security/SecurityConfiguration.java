@@ -26,6 +26,7 @@ public class SecurityConfiguration {
                                 ApiPathConstants.USER_API + "/auth/**",
                                 ApiPathConstants.BARBER_API + "/auth/**",
                                 ApiPathConstants.ADMIN_API + "/auth/**",
+                                ApiPathConstants.LOCATION_API + "/**",
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
