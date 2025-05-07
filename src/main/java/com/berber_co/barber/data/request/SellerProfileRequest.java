@@ -1,5 +1,6 @@
 package com.berber_co.barber.data.request;
 
+
 public record SellerProfileRequest(
         String firstName,
         String lastName,
@@ -8,6 +9,7 @@ public record SellerProfileRequest(
         String city,
         String district,
         String storeName,
-        String storeDescription
+        String storeDescription,
+        String profilePhotoUrl
 ) {
 }

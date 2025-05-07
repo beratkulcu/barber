@@ -1,7 +1,7 @@
 package com.berber_co.barber.security;
 
 import com.berber_co.barber.entity.barber.Seller;
-import com.berber_co.barber.repository.SellerRepository;
+import com.berber_co.barber.repository.barber.SellerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

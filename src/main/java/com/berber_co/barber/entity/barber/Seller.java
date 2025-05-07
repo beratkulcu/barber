@@ -50,6 +50,7 @@ public class Seller extends BaseEntity {
 
     private String firstName;
     private String lastName;
+    private String storePhotoUrl;
 
     public String getFullName() {
         return firstName + " " + lastName;

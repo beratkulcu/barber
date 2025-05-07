@@ -14,7 +14,7 @@ import com.berber_co.barber.enums.RoleType;
 import com.berber_co.barber.enums.TokenStatusEnum;
 import com.berber_co.barber.exception.AppException;
 import com.berber_co.barber.repository.RoleRepository;
-import com.berber_co.barber.repository.SellerRepository;
+import com.berber_co.barber.repository.barber.SellerRepository;
 import com.berber_co.barber.repository.TokenRepository;
 import com.berber_co.barber.security.JwtService;
 import com.berber_co.barber.service.barber.SellerAuthService;

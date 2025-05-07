@@ -18,4 +18,5 @@ public class SellerProfileResponse {
     private String storeName;
     private String storeDescription;
     private LocalDateTime membershipDate;
+    private String storePhotoUrl;
 }

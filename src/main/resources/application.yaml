@@ -21,6 +21,11 @@ spring:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
 
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
 security:
   jwt:
     secret: 62c612c58292dbf0e7a70d0a7f422e487de40300aab5d7bf6d57416b3414e1a87cf9623c7207f5c989cb8a412bd201dec37cb136b9ff596a6506c21184dc922e055ce2a4dea29eb5fa4ed3a3aaab5fbfe84a0b866b21ba6299087a15de057bfbe2c3b24fc85b16341a3ad51615912b6442ee00e434e79d2e6fa3c76f8b8146afced3eff5e1cfbd8a3e96107f0bfe84af54d4ae4f2a71f17ef9a661eeb0d3dfdda28f7e07c78ec7a4115c5903553694cf94e9ae54e71380679867e38a51ff420ac7ac4b5d525c1a48afc97e69ca0ca6552069cc3b12f07f68804c9eb1b81445c68a06cd02262014ae39dff1feff42127fd8e561e3d633188af11e57def34dfaf3

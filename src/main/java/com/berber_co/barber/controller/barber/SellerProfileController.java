@@ -18,7 +18,7 @@ import static com.berber_co.barber.configuration.constans.ApiPathConstants.BARBE
 public class SellerProfileController {
     private final SellerProfileService sellerProfileService;
 
-    @PutMapping()
+    @PutMapping
     public ResponseEntity<ApiResponse<Boolean>> updateProfile(@RequestBody SellerProfileRequest request) {
         return ResponseEntity.ok(sellerProfileService.updateProfile(request));
     }

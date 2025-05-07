@@ -1,4 +1,4 @@
-package com.berber_co.barber.repository;
+package com.berber_co.barber.repository.barber;
 
 import com.berber_co.barber.entity.barber.Seller;
 import org.springframework.data.jpa.repository.JpaRepository;

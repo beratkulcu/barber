@@ -5,7 +5,6 @@ import com.berber_co.barber.data.request.UserLoginRequest;
 import com.berber_co.barber.data.request.UserRegisterRequest;
 import com.berber_co.barber.data.response.AuthenticationResponse;
 import com.berber_co.barber.service.user.UserAuthService;
-import com.berber_co.barber.util.SecurityUtil;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

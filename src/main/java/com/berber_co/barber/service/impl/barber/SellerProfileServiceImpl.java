@@ -10,7 +10,8 @@ import com.berber_co.barber.data.request.SellerProfileRequest;
 import com.berber_co.barber.data.response.SellerProfileResponse;
 import com.berber_co.barber.entity.barber.Seller;
 import com.berber_co.barber.exception.AppException;
-import com.berber_co.barber.repository.SellerRepository;
+import com.berber_co.barber.repository.barber.SellerRepository;
+import com.berber_co.barber.service.barber.FileStorageService;
 import com.berber_co.barber.service.barber.SellerProfileService;
 import com.berber_co.barber.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class SellerProfileServiceImpl implements SellerProfileService {
     private final CityRepository cityRepository;
     private final DistrictRepository districtRepository;
     private final SellerProfileMapper sellerProfileMapper;
+    private final FileStorageService fileService;
 
 
     @Override
@@ -50,6 +52,8 @@ public class SellerProfileServiceImpl implements SellerProfileService {
             seller.setDistrict(district.getName());
         }
 
+
+        seller.setStorePhotoUrl(request.profilePhotoUrl() != null ? request.profilePhotoUrl() : seller.getStorePhotoUrl());
         seller.setFirstName(request.firstName() != null ? request.firstName() : seller.getFirstName());
         seller.setLastName(request.lastName() != null ? request.lastName() : seller.getLastName());
         seller.setAddress(request.address() != null ? request.address() : seller.getAddress());
