@@ -6,4 +6,8 @@ import org.springframework.data.domain.Page;
 
 public interface LocationService {
     ApiResponse<Page<DistrictResponse>> getDistricts(int page, int size);
+
+    String getCityNameByCode(String cityCode);
+
+    String getDistrictNameByCode(String districtCode);
 }

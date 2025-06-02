@@ -1,9 +1,7 @@
 package com.berber_co.barber.service.impl.barber;
 
 import com.berber_co.barber.configuration.constans.ApiResponse;
-import com.berber_co.barber.configuration.seeder.CityDocument;
 import com.berber_co.barber.configuration.seeder.CityRepository;
-import com.berber_co.barber.configuration.seeder.DistrictDocument;
 import com.berber_co.barber.configuration.seeder.DistrictRepository;
 import com.berber_co.barber.data.mapstruct.SellerProfileMapper;
 import com.berber_co.barber.data.request.SellerProfileRequest;
@@ -13,6 +11,7 @@ import com.berber_co.barber.exception.AppException;
 import com.berber_co.barber.repository.barber.SellerRepository;
 import com.berber_co.barber.service.barber.FileStorageService;
 import com.berber_co.barber.service.barber.SellerProfileService;
+import com.berber_co.barber.service.location.LocationService;
 import com.berber_co.barber.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +28,7 @@ public class SellerProfileServiceImpl implements SellerProfileService {
     private final DistrictRepository districtRepository;
     private final SellerProfileMapper sellerProfileMapper;
     private final FileStorageService fileService;
+    private final LocationService locationService;
 
 
     @Override
@@ -38,21 +38,19 @@ public class SellerProfileServiceImpl implements SellerProfileService {
                 .orElseThrow(() -> new AppException(ERROR, SELLER_NOT_FOUND));
 
         if (request.city() != null && request.district() != null) {
-            CityDocument city = cityRepository.findById(request.city())
-                    .orElseThrow(() -> new AppException(ERROR, CITY_NOT_FOUND));
+            String cityName = locationService.getCityNameByCode(request.city());
+            String districtName = locationService.getDistrictNameByCode(request.district());
 
-            DistrictDocument district = districtRepository.findById(request.district())
-                    .orElseThrow(() -> new AppException(ERROR, DISTRICT_NOT_FOUND));
-
-            if (!district.getCityId().equals(city.getId())) {
-                throw new AppException(ERROR, CITY_DISTRICT_NOT_MATCH);
+            if (cityName == null || districtName == null) {
+                throw new AppException(ERROR, "Invalid city or district");
             }
 
-            seller.setCity(city.getName());
-            seller.setDistrict(district.getName());
+            seller.setCity(request.city());
+            seller.setDistrict(request.district());
         }
 
-
+        seller.setLatitude(request.latitude() != null ? request.latitude() : seller.getLatitude());
+        seller.setLongitude(request.longitude() != null ? request.longitude() : seller.getLongitude());
         seller.setStorePhotoUrl(request.profilePhotoUrl() != null ? request.profilePhotoUrl() : seller.getStorePhotoUrl());
         seller.setFirstName(request.firstName() != null ? request.firstName() : seller.getFirstName());
         seller.setLastName(request.lastName() != null ? request.lastName() : seller.getLastName());

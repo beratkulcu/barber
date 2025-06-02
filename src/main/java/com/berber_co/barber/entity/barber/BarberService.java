@@ -1,6 +1,7 @@
 package com.berber_co.barber.entity.barber;
 
 import com.berber_co.barber.entity.abstracts.BaseEntity;
+import com.berber_co.barber.enums.ActivityStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,7 +37,7 @@ public class BarberService extends BaseEntity {
     @JoinColumn(name = "seller_id", nullable = false)
     private Seller seller;
 
-    // İleride eklenebilecek: Berber çalışanlarıyla ilişki için hazır yapı
-//    @ManyToMany(mappedBy = "services")
-//    private Set<Employee> employees = new HashSet<>();
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ActivityStatus status;
 }

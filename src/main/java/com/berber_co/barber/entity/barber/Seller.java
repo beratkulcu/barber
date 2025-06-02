@@ -41,6 +41,12 @@ public class Seller extends BaseEntity {
     )
     private Set<Role> roles;
 
+    @Column
+    private Double latitude;
+
+    @Column
+    private Double longitude;
+
     private String storeName;
 
     private String storeDescription;

@@ -12,7 +12,6 @@ public final class Validations {
     public static final String USERNAME_ALREADY_EXISTS = "Username already exists";
     public static final String ROLE_NOT_FOUND = "Role not found";
     public static final String SELLER_NOT_FOUND = "Seller not found";
-    public static final String CITY_NOT_FOUND = "City not found";
-    public static final String DISTRICT_NOT_FOUND = "District not found";
-    public static final String CITY_DISTRICT_NOT_MATCH = "City and district do not match";
+    public static final String BARBER_SERVICE_NOT_FOUND = "Barber service not found";
+    public static final String APPOINTMENT_NOT_FOUND = "Appointment not found";
 }

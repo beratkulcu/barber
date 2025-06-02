@@ -29,4 +29,14 @@ public class BarberServiceController {
     public ResponseEntity<ApiResponse<List<BarberServiceResponse>>> getAllServicesForBarber() {
         return ResponseEntity.ok(barberServices.getBarberServices());
     }
+
+    @PutMapping("/{serviceId}")
+    public ResponseEntity<ApiResponse<Boolean>> updateService(@PathVariable Long serviceId, @RequestBody BarberServiceRequest request) {
+        return ResponseEntity.ok(barberServices.updateBarberService(serviceId, request));
+    }
+
+    @PutMapping("/{serviceId}/deactivate")
+    public ResponseEntity<ApiResponse<Boolean>> deactivateService(@PathVariable Long serviceId) {
+        return ResponseEntity.ok(barberServices.deactivateBarberService(serviceId));
+    }
 }

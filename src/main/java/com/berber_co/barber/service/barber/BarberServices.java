@@ -10,4 +10,8 @@ public interface BarberServices {
     ApiResponse<Boolean> createBarberService(BarberServiceRequest request);
 
     ApiResponse<List<BarberServiceResponse>> getBarberServices();
+
+    ApiResponse<Boolean> updateBarberService(Long serviceId, BarberServiceRequest request);
+
+    ApiResponse<Boolean> deactivateBarberService(Long serviceId);
 }

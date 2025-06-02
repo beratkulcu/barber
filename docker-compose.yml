@@ -24,3 +24,5 @@ services:
 volumes:
   pgdata:
   mongodata:
+  kafka_data:
+  kafka_meta:

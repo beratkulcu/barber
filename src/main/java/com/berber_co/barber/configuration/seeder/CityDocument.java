@@ -16,5 +16,4 @@ public class CityDocument {
     @Id
     private String id;
     private String name;
-    private List<DistrictDocument> district;
 }

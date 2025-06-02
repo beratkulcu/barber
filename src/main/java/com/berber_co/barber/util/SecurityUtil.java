@@ -1,15 +1,13 @@
 package com.berber_co.barber.util;
 
-import com.berber_co.barber.entity.barber.Seller;
 import com.berber_co.barber.entity.user.User;
 import com.berber_co.barber.exception.AppException;
 import com.berber_co.barber.security.CustomSellerDetails;
-import jakarta.servlet.http.HttpServletRequest;
+import com.berber_co.barber.security.CustomUserDetails;
+import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static com.berber_co.Validations.ERROR;
 
@@ -20,8 +18,8 @@ public final class SecurityUtil {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
 
-        if (principal instanceof User user) {
-            return user.getId();
+        if (principal instanceof CustomUserDetails userDetails) {
+            return userDetails.getId();
         }
 
         throw new AppException(ERROR, "Invalid user authentication principal");
