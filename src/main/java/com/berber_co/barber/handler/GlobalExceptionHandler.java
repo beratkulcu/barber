@@ -1,6 +1,5 @@
 package com.berber_co.barber.handler;
 
-import com.berber_co.Validations;
 import com.berber_co.barber.configuration.constans.ApiResponse;
 import com.berber_co.barber.exception.AppException;
 import org.springframework.http.ResponseEntity;

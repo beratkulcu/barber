@@ -20,7 +20,7 @@ import static com.berber_co.Validations.ERROR;
 
 @Service
 @RequiredArgsConstructor
-public class LocationServiceImpl implements LocationService{
+public abstract class LocationServiceImpl implements LocationService{
     private final DistrictRepository districtRepository;
     private final CityRepository cityRepository;
     private final MongoTemplate mongoTemplate;
@@ -35,21 +35,19 @@ public class LocationServiceImpl implements LocationService{
         return city.getName();
     }
 
-    @Override
-    public String getDistrictNameByCode(String cityCode, String districtCode) {
-        try {
-            Query query = new Query(Criteria.where("cityId").is(cityCode).and("_id").is(new ObjectId(districtCode)));
-            DistrictDocument district = mongoTemplate.findOne(query, DistrictDocument.class, "districts");
-            if (district == null) {
-                throw new AppException(ERROR, "District not found for city code: " + cityCode + " and district code: " + districtCode);
-            }
-            return district.getName();
-        } catch (IllegalArgumentException e) {
-            throw new AppException(ERROR, "Invalid district code format: " + districtCode);
-        }
-    }
-
-
+//    @Override
+//    public String getDistrictNameByCode(String cityCode, String districtCode) {
+//        try {
+//            Query query = new Query(Criteria.where("cityId").is(cityCode).and("_id").is(new ObjectId(districtCode)));
+//            DistrictDocument district = mongoTemplate.findOne(query, DistrictDocument.class, "districts");
+//            if (district == null) {
+//                throw new AppException(ERROR, "District not found for city code: " + cityCode + " and district code: " + districtCode);
+//            }
+//            return district.getName();
+//        } catch (IllegalArgumentException e) {
+//            throw new AppException(ERROR, "Invalid district code format: " + districtCode);
+//        }
+//    }
 
     @Override
     public ApiResponse<Page<DistrictResponse>> getDistricts(int page, int size) {

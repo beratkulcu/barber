@@ -35,7 +35,7 @@ public class SellerAppointmentService {
             notificationService.sendSellerConfirmationNotification(appointmentId, message);
             return ApiResponse.success(true);
         } catch (Exception e) {
-            log.error("ERROR", e.getMessage());
+            log.error(e.getMessage());
             return ApiResponse.error(ERROR, "Appointment confirmation failed");
         }
     }
@@ -54,7 +54,7 @@ public class SellerAppointmentService {
 
             String message = "Randevu iptal edildi";
             notificationService.sendSellerCancellationNotification(appointmentId, message, reason);
-            log.info("Randevu iptal edildi: Appointment ID: {}, Reason: {}", appointmentId, reason);
+            log.info("Appointment is not completed: Appointment ID: {}, Reason: {}", appointmentId, reason);
             return ApiResponse.success(true);
         } catch (Exception e) {
             log.error("Randevu iptal hatası: {}", e.getMessage());

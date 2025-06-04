@@ -1,10 +1,8 @@
 package com.berber_co.barber.util;
 
-import com.berber_co.barber.entity.user.User;
 import com.berber_co.barber.exception.AppException;
 import com.berber_co.barber.security.CustomSellerDetails;
 import com.berber_co.barber.security.CustomUserDetails;
-import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,5 +33,4 @@ public final class SecurityUtil {
 
         throw new AppException(ERROR, "Invalid seller authentication principal");
     }
-
 }

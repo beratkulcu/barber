@@ -15,9 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import static com.berber_co.Validations.ERROR;
 import static com.berber_co.Validations.SELLER_NOT_FOUND;
@@ -86,12 +84,6 @@ public class SellerAvailabilityServiceImpl implements SellerAvailabilityService 
                 ))
                 .toList();
         return ApiResponse.success(responses);
-    }
-
-
-    private Seller findSellerById(Long sellerId) {
-        return sellerRepository.findById(sellerId)
-                .orElseThrow(() -> new AppException(ERROR, SELLER_NOT_FOUND));
     }
 
     private SellerAvailability findAvailabilityById(Long id) {
